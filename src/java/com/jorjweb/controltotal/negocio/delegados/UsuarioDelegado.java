@@ -29,7 +29,9 @@ public class UsuarioDelegado extends GenericoDelegado<Usuario>{
         genericoDao = usuarioDao;
     }
     
-    
+    public void consultarLogin(Usuario usuarioLogin) throws ControlTotalException{
+        new UsuarioDao(cnn).consultar(usuarioLogin);
+    }
     
     
     

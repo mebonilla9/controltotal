@@ -14,6 +14,7 @@ public class Usuario {
     private int idUsuario; // INT id_usuario
     private String nombre; // VARCHAR,TEXT,JSON
     private String correo; 
+    private String contrasena;
     private boolean estado;
 
     /**
@@ -70,6 +71,20 @@ public class Usuario {
      */
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the contrasena
+     */
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    /**
+     * @param contrasena the contrasena to set
+     */
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
     
     
