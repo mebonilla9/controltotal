@@ -13,9 +13,6 @@ import com.jorjweb.controltotal.negocio.utilidades.UrlUtil;
 import com.jorjweb.controltotal.persistencia.entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.MessageDigest;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +31,8 @@ import javax.servlet.http.HttpSession;
             "/usuario/consultar",
             "/usuario/buscar",
             "/login",
-            "/usuario/contrasena"
+            "/usuario/contrasena",
+            "/prueba/html"
         }
 )
 public class UsuarioServlet extends HttpServlet {
@@ -50,7 +48,7 @@ public class UsuarioServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             // evaluar la Url del servlet recibido desde el cliente
             EAcciones accion = UrlUtil.getAccion(request.getServletPath());
@@ -67,7 +65,12 @@ public class UsuarioServlet extends HttpServlet {
                 case BUSCAR:
                     break;
                 default:
-                    throw new AssertionError();
+                    response.setContentType("text/html;charset=UTF-8");
+                    out.print("<html>");
+                    out.print("<body>");
+                    out.print("<h1> Hola a todos </h1>");
+                    out.print("</body>");
+                    out.print("</html>");
             }
         } catch (ControlTotalException e) {
 
