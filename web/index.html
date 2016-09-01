@@ -17,18 +17,26 @@ and open the template in the editor.
     </head>
     <body>
         <div id="contenedorLogin" role="form">
-            <div class="form-group">
-                <label for="txtUsuario">Nombre de usuario</label>
-                <input class="form-control" type="text" id="txtUsuario" required/>
-            </div>
-            <div class="form-group">
-                <label for="txtPassword">Contraseña</label>
-                <input class="form-control" type="password" id="txtPassword" required/>
-            </div>
-            <div>
-                <button class="btn btn-success btn" id="btnIngresar">Ingresar</button>
-            </div>
+            <form id="formLogin" action="login" role="form" method="POST">
+                <div class="form-group">
+                    <label for="txtUsuario">Nombre de usuario</label>
+                    <input class="form-control" type="email" id="txtUsuario" required/>
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword">Contraseña</label>
+                    <input class="form-control" type="password" id="txtPassword" required/>
+                </div>
+                <div id="fallaLogin" class="alert" style="display: none;">
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-success btn" id="btnIngresar" value="Iniciar Sesion">
+                </div>
+            </form>
         </div>
-        <script src="js/index.js"></script>
+        <script src="js/app.ajax.js"></script>
+        <script src="js/app.rout.js"></script>
+        <script src="js/index/index.model.js"></script>
+        <script src="js/index/index.control.js"></script>
+        <script src="js/index/index.vista.js"></script>
     </body>
 </html>

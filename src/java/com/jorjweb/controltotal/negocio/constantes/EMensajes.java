@@ -22,7 +22,8 @@ public enum EMensajes {
     ERROR_ELIMINAR(-1,"Error al eliminar el registro"),
     ERROR_REGISTRO_EXISTE(-1,"El registro ya existe"),
     ERROR_CONEXION_BD(-2,"No hay conexion con la base de datos"),
-    ERROR_URL_INVALIDA(404,"El recurso al que intenta acceder no existe");
+    ERROR_URL_INVALIDA(404,"El recurso al que intenta acceder no existe"),
+    ERROR_LOGIN(-1,"Usuario no encontrado, verifique su usuario y contraseña");
     
     private int codigo;
     private String descripcion;

@@ -5,14 +5,17 @@
  */
 package com.jorjweb.controltotal.negocio.servlets;
 
+import com.google.gson.Gson;
 import com.jorjweb.controltotal.negocio.constantes.EAcciones;
 import com.jorjweb.controltotal.negocio.constantes.EMensajes;
 import com.jorjweb.controltotal.negocio.delegados.UsuarioDelegado;
 import com.jorjweb.controltotal.negocio.excepciones.ControlTotalException;
 import com.jorjweb.controltotal.negocio.utilidades.UrlUtil;
+import com.jorjweb.controltotal.persistencia.dto.RespuestaDto;
 import com.jorjweb.controltotal.persistencia.entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,6 +34,7 @@ import javax.servlet.http.HttpSession;
             "/usuario/consultar",
             "/usuario/buscar",
             "/login",
+            "/home",
             "/usuario/contrasena",
             "/prueba/html"
         }
@@ -49,31 +53,35 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
+        RespuestaDto respuesta = null;
         try (PrintWriter out = response.getWriter()) {
-            // evaluar la Url del servlet recibido desde el cliente
-            EAcciones accion = UrlUtil.getAccion(request.getServletPath());
-            switch (accion) {
-                case LOGIN:
-                    iniciarSesion(request, response);
-                    break;
-                case INSERTAR:
-                    break;
-                case MODIFICAR:
-                    break;
-                case CONSULTAR:
-                    break;
-                case BUSCAR:
-                    break;
-                default:
-                    response.setContentType("text/html;charset=UTF-8");
-                    out.print("<html>");
-                    out.print("<body>");
-                    out.print("<h1> Hola a todos </h1>");
-                    out.print("</body>");
-                    out.print("</html>");
+            try {// evaluar la Url del servlet recibido desde el cliente
+                EAcciones accion = UrlUtil.getAccion(request.getServletPath());
+                switch (accion) {
+                    case LOGIN:
+                        iniciarSesion(request, response);
+                        respuesta = new RespuestaDto(EMensajes.CONSULTO);
+                        break;
+                    case INSERTAR:
+                        this.insertarUsuario(request);
+                        respuesta = new RespuestaDto(EMensajes.INSERTO);
+                        break;
+                    case MODIFICAR:
+                        break;
+                    case CONSULTAR:
+                        break;
+                    case BUSCAR:
+                        break;
+                    default:
+                        response.setContentType("text/html");
+                        request.getRequestDispatcher("/home.jsp").forward(request, response);
+                }
+            } catch (ControlTotalException e) {
+                respuesta = new RespuestaDto();
+                respuesta.setCodigo(e.getCodigo());
+                respuesta.setMensaje(e.getMensaje());
             }
-        } catch (ControlTotalException e) {
-
+            out.print(new Gson().toJson(respuesta));
         }
     }
 
@@ -124,17 +132,25 @@ public class UsuarioServlet extends HttpServlet {
         usuarioLogin.setContrasena(contrasena);
         new UsuarioDelegado().consultarLogin(usuarioLogin);
         if (usuarioLogin.getIdUsuario() > 0) {
-            try {
-                HttpSession sesion = request.getSession();
-                sesion.setAttribute("idusuario", usuarioLogin.getIdUsuario());
-                sesion.setAttribute("nombre", usuarioLogin.getNombre());
-                response.sendRedirect("home.jsp");
-            } catch (IOException ex) {
-                throw new ControlTotalException(EMensajes.ERROR_URL_INVALIDA);
-            }
+            HttpSession sesion = request.getSession();
+            sesion.setAttribute("idusuario", usuarioLogin.getIdUsuario());
+            sesion.setAttribute("nombre", usuarioLogin.getNombre());
             return;
         }
-        request.setAttribute("errorlogin", "Usuario no encontrado intente nuevamente");
+        throw new ControlTotalException(EMensajes.ERROR_LOGIN);
+    }
+
+    private void insertarUsuario(HttpServletRequest request) throws ControlTotalException {
+        String nombre = request.getParameter("nombre");
+        String correo = request.getParameter("correo");
+        String contrasena = request.getParameter("contrasena");
+        String estado = request.getParameter("estado");
+        Usuario usuarioRegistrar = new Usuario();
+        usuarioRegistrar.setNombre(nombre);
+        usuarioRegistrar.setCorreo(correo);
+        usuarioRegistrar.setContrasena(contrasena);
+        usuarioRegistrar.setEstado(Boolean.parseBoolean(estado));
+        new UsuarioDelegado().insertar(usuarioRegistrar);
     }
 
 }

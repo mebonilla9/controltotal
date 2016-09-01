@@ -114,9 +114,9 @@ public class UsuarioDao implements IGenericoDao<Usuario> {
     public void consultar(Usuario entidad) throws ControlTotalException {
         PreparedStatement sentencia = null;
         try {
-            String sql = "SELECT * FROM usuario WHERE nombre = ? AND contrasena = ?;";
+            String sql = "SELECT * FROM usuario WHERE correo = ? AND contrasena = ?;";
             sentencia = cnn.prepareStatement(sql);
-            sentencia.setString(1, entidad.getNombre());
+            sentencia.setString(1, entidad.getCorreo());
             sentencia.setString(2, entidad.getContrasena());
             ResultSet resultado = sentencia.executeQuery();
             if (resultado.next()) {
@@ -128,7 +128,6 @@ public class UsuarioDao implements IGenericoDao<Usuario> {
             }
         } catch (Exception e) {
             throw new ControlTotalException(EMensajes.ERROR_CONSULTAR);
-
         } finally {
             ConexionBD.desconectar(sentencia);
         }

@@ -58,7 +58,7 @@
                             <li class="nav-profile">
                                 <div class="nav-profile-image">
                                     <img src="img/usuario.png" alt="profile-img" alt="profile image">
-                                    <div class="nav-profile-name">El Usuario<i class="fa fa-caret-down"></i></div>
+                                    <div class="nav-profile-name">${sessionScope.nombre}<i class="fa fa-caret-down"></i></div>
                                 </div>
                             </li>
                         </ul>

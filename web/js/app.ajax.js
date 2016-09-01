@@ -8,9 +8,9 @@ var __cnn = {
             'type': (args.metodo)?args.metodo : 'POST',
             'async': (args.async!==null || args.async!==undefined)?args.async:true,
             'dataType': (args.tipo)?args.tipo:'json',
-            'success': (args.async!==undefined && args.async===false)?function(data){__dom.ocultarCargador(); result = data;  }:args.completado,
+            'success': (args.async!==undefined && args.async===false)?function(data){result = data;  }:args.completado,
             'error': (args.error)?args.error:this.capturarError,
-            'beforeSend': (!args.background)?__dom.mostrarCargador:null,
+            'beforeSend': (!args.background)?console.log('cargando'):null,
             'timeout':180000000
         };
         $.ajax(defecto);
@@ -24,7 +24,6 @@ var __cnn = {
         }
     },
     capturarError:function(_error) {
-        __dom.ocultarCargador();
         __cnn.myError = _error;
     }
 };
