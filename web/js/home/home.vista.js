@@ -20,6 +20,11 @@ var homeVista = {
                 break;
         }
         $('.container-fluid').empty().load(html);
+        that.actualizarFocoMenu($(this));
+    },
+    actualizarFocoMenu:function(elemento){
+        $("#navBar").find(".item").removeClass('active-item-nav');
+        elemento.addClass('active-item-nav');
     }
 };
 homeVista.init();

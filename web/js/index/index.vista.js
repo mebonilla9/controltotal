@@ -4,7 +4,6 @@ var indexVista = {
         that = this;
         console.log("Pagina inicial cargada");
         $('#formLogin').on('submit',that.ingresarSistema);
-        
     },
     ingresarSistema:function(e){
         e.preventDefault();
@@ -21,12 +20,13 @@ var indexVista = {
             window.location = 'home';
             return;
         }
+        $('#fallaLogin').html('').removeClass('alert-danger');
         $('#fallaLogin').html(data.mensaje).addClass('alert-danger').slideDown('fast');
-        indexModel.tiempoErrorLogin = setTimeout(that.esconderAlertaErrorLogin,5000);
+        indexModel.tiempoErrorLogin = setTimeout(that.esconderAlertaErrorLogin,2500);
     },
     esconderAlertaErrorLogin:function(){
         clearTimeout(indexModel.tiempoErrorLogin);
-        $('#fallaLogin').html('').removeClass('alert-danger').slideUp('fast');
+        $('#fallaLogin').slideUp('fast');
         indexModel.tiempoErrorLogin = {};
     }
 };

@@ -69,6 +69,11 @@ body {
     background-color: #000;
 }
 
+.active-item-nav{
+    color: #fff;
+    background-color: #000;
+}
+
 .top-nav>.open>.dropdown-menu {
     float: left;
     position: absolute;
