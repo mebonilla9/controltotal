@@ -1,42 +1,96 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html lang="en">
+
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/indexStyle.css" rel="stylesheet" type="text/css"/>
-        <script src="js/libs/jquery-2.2.4.min.js"></script>
-        <script src="js/libs/bootstrap.min.js"></script>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Control total -- Inicio de sesión</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- MetisMenu CSS -->
+        <link href="css/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="css/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
     </head>
+
     <body>
-        <div id="contenedorLogin" role="form">
-            <form id="formLogin" action="login" role="form" method="POST">
-                <div class="form-group">
-                    <label for="txtUsuario">Nombre de usuario</label>
-                    <input class="form-control" type="email" id="txtUsuario" required/>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-8">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Iniciar Sesion</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="formLogin" role="form">
+                                <fieldset>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </span>
+                                        <input type="email" id="txtUsuario" class="form-control" placeholder="Correo" autofocus required>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-lock"></i>
+                                        </span>
+                                        <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña" value="" required>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="cboRecordar" value="Remember Me">Recuérdame
+                                        </label>
+                                    </div>
+                                    <div id="fallaLogin" class="alert" style="display: none;">
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <input type="submit" class="btn btn-lg btn-success btn-block" value="Iniciar Sesión">
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="txtPassword">Contraseña</label>
-                    <input class="form-control" type="password" id="txtPassword" required/>
-                </div>
-                <div id="fallaLogin" class="alert" style="display: none;">
-                </div>
-                <div>
-                    <input type="submit" class="btn btn-success btn" id="btnIngresar" value="Iniciar Sesion">
-                </div>
-            </form>
+            </div>
         </div>
+
+        <!-- jQuery -->
+        <script src="js/libs/jquery-2.2.4.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/libs/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="js/libs/metisMenu/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="js/libs/sb-admin-2.min.js"></script>
+
         <script src="js/app.ajax.js"></script>
         <script src="js/app.rout.js"></script>
         <script src="js/index/index.model.js"></script>
         <script src="js/index/index.control.js"></script>
         <script src="js/index/index.vista.js"></script>
+
     </body>
+
 </html>

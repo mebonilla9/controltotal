@@ -15,7 +15,6 @@ import com.jorjweb.controltotal.persistencia.dto.RespuestaDto;
 import com.jorjweb.controltotal.persistencia.entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.MessageDigest;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
