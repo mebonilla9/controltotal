@@ -154,6 +154,7 @@
                                 <li>
                                     <a id="itemUsuario" class="item" href="#">Usuarios</a>
                                 </li>
+                                <li><a href="#" id="itemVisitas" class="item">Visitas</a></li>
                             </ul>
                         </li>
                         <li style="border-bottom: #000 1px solid;">

@@ -18,6 +18,9 @@ var homeVista = {
             case 'itemAmortizacion':
                 html = 'vistas/amortizacion.jsp';
                 break;
+            case 'itemVisitas':
+                html = 'vistas/visitas.jsp';
+                break;
         }
         $('.container-fluid').empty().load(html);
         that.actualizarFocoMenu($(this));

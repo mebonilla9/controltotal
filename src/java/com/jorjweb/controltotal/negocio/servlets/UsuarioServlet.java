@@ -73,7 +73,12 @@ public class UsuarioServlet extends HttpServlet {
                         break;
                     default:
                         response.setContentType("text/html");
-                        request.getRequestDispatcher("/home.jsp").forward(request, response);
+                        if (request.getSession().getAttribute("nombre") != null) {
+                            request.getRequestDispatcher("/home.jsp").forward(request, response);
+                            return;
+                        }
+                        request.getRequestDispatcher("/").forward(request, response);
+                        break;
                 }
             } catch (ControlTotalException e) {
                 respuesta = new RespuestaDto();
