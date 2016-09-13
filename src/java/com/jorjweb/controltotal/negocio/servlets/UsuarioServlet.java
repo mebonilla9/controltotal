@@ -15,6 +15,7 @@ import com.jorjweb.controltotal.persistencia.dto.RespuestaDto;
 import com.jorjweb.controltotal.persistencia.entidades.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,6 +53,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         RespuestaDto respuesta = null;
         try (PrintWriter out = response.getWriter()) {
             try {// evaluar la Url del servlet recibido desde el cliente
@@ -66,10 +68,14 @@ public class UsuarioServlet extends HttpServlet {
                         respuesta = new RespuestaDto(EMensajes.INSERTO);
                         break;
                     case MODIFICAR:
+                        this.editarUsuario(request);
+                        respuesta = new RespuestaDto(EMensajes.MODIFICO);
                         break;
                     case CONSULTAR:
+                        respuesta = new RespuestaDto(EMensajes.CONSULTO, this.consultarUsuarios());
                         break;
                     case BUSCAR:
+                        respuesta = new RespuestaDto(EMensajes.CONSULTO, this.consultarUsuario(request,response));
                         break;
                     default:
                         response.setContentType("text/html");
@@ -155,6 +161,31 @@ public class UsuarioServlet extends HttpServlet {
         usuarioRegistrar.setContrasena(contrasena);
         usuarioRegistrar.setEstado(Boolean.parseBoolean(estado));
         new UsuarioDelegado().insertar(usuarioRegistrar);
+    }
+
+    private List<Usuario> consultarUsuarios() throws ControlTotalException {
+        return new UsuarioDelegado().consultar();
+    }
+
+    private Usuario consultarUsuario(HttpServletRequest request, HttpServletResponse response) throws ControlTotalException {
+        String idUsuario = request.getParameter("idUsuario");
+        Usuario usuario = new UsuarioDelegado().consultar(Integer.parseInt(idUsuario));
+        return usuario;
+    }
+
+    private void editarUsuario(HttpServletRequest request) throws ControlTotalException {
+        String idUsuario = request.getParameter("idUsuario");
+        String nombre = request.getParameter("nombre");
+        String correo = request.getParameter("correo");
+        String contrasena = request.getParameter("contrasena");
+        String estado = request.getParameter("estado");
+        Usuario usuarioRegistrar = new Usuario();
+        usuarioRegistrar.setIdUsuario(Integer.parseInt(idUsuario));
+        usuarioRegistrar.setNombre(nombre);
+        usuarioRegistrar.setCorreo(correo);
+        usuarioRegistrar.setContrasena(contrasena);
+        usuarioRegistrar.setEstado(Boolean.parseBoolean(estado));
+        new UsuarioDelegado().editar(usuarioRegistrar);
     }
 
 }

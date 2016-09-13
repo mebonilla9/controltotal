@@ -13,7 +13,7 @@ public enum EAcciones {
     
     LOGIN("/login"),
     INSERTAR("/insertar"),
-    MODIFICAR("/modificar"),
+    MODIFICAR("/editar"),
     CONSULTAR("/consultar"),
     BUSCAR("/buscar"),
     NO_EXISTE("La url solicitada no existe");

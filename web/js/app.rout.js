@@ -1,3 +1,4 @@
 var __rout = {
-	root:'http://localhost:8084/controltotal/'
+	//root:'http://localhost:8084/controltotal/'
+	root:''
 };
