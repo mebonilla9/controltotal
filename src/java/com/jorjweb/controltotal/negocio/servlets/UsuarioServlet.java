@@ -6,6 +6,8 @@
 package com.jorjweb.controltotal.negocio.servlets;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jorjweb.controltotal.negocio.constantes.EAcciones;
 import com.jorjweb.controltotal.negocio.constantes.EMensajes;
 import com.jorjweb.controltotal.negocio.delegados.UsuarioDelegado;
@@ -34,6 +36,7 @@ import javax.servlet.http.HttpSession;
             "/usuario/consultar",
             "/usuario/buscar",
             "/login",
+            "/rmlogin",
             "/home",
             "/usuario/contrasena",
             "/prueba/html"
@@ -75,7 +78,10 @@ public class UsuarioServlet extends HttpServlet {
                         respuesta = new RespuestaDto(EMensajes.CONSULTO, this.consultarUsuarios());
                         break;
                     case BUSCAR:
-                        respuesta = new RespuestaDto(EMensajes.CONSULTO, this.consultarUsuario(request,response));
+                        respuesta = new RespuestaDto(EMensajes.CONSULTO, this.consultarUsuario(request, response));
+                        break;
+                    case LOGIN_REMOTO:
+                        respuesta = new RespuestaDto(EMensajes.CONSULTO, iniciarSesionRemoto(request));
                         break;
                     default:
                         response.setContentType("text/html");
@@ -186,6 +192,19 @@ public class UsuarioServlet extends HttpServlet {
         usuarioRegistrar.setContrasena(contrasena);
         usuarioRegistrar.setEstado(Boolean.parseBoolean(estado));
         new UsuarioDelegado().editar(usuarioRegistrar);
+    }
+
+    private Usuario iniciarSesionRemoto(HttpServletRequest request) throws ControlTotalException {
+        Usuario usuarioLogin = new Usuario();
+        String usuario = request.getParameter("data");
+        JsonObject usuarioObject = new JsonParser().parse(usuario).getAsJsonObject();
+        usuarioLogin.setCorreo(usuarioObject.get("correo").getAsString());
+        usuarioLogin.setContrasena(usuarioObject.get("contrasena").getAsString());
+        new UsuarioDelegado().consultarLogin(usuarioLogin);
+        if (usuarioLogin.getIdUsuario() <= 0) {
+            throw new ControlTotalException(EMensajes.ERROR_LOGIN);
+        }
+        return usuarioLogin;
     }
 
 }

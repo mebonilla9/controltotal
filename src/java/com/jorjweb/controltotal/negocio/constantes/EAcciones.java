@@ -12,6 +12,7 @@ package com.jorjweb.controltotal.negocio.constantes;
 public enum EAcciones {
     
     LOGIN("/login"),
+    LOGIN_REMOTO("/rmlogin"),
     INSERTAR("/insertar"),
     MODIFICAR("/editar"),
     CONSULTAR("/consultar"),

@@ -21,7 +21,7 @@ public class ConexionBD {
     public static Connection conectar() throws ControlTotalException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/control_total", "root", "1234");
+            Connection cnn = DriverManager.getConnection("jdbc:mysql://mysql3000.mochahost.com:3306/mbrain1_control_total", "mbrain1", "xy36bic");
             cnn.setAutoCommit(false);
             return cnn;
         } catch (ClassNotFoundException | SQLException ex) {
